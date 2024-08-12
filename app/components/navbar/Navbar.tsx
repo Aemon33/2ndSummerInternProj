@@ -1,5 +1,5 @@
-import Image from "next/Image"
-import Link from "next/link"
+import Link from 'next/link'
+import Image from 'next/Image'
 import SearchFilter  from "./SearchFilter"
 const  Navbar= () => {
   return (
@@ -9,7 +9,7 @@ const  Navbar= () => {
         <div className="flex justify-between items-center   bg-cyan-100">
                 <Link href="/">
                 <Image 
-                src="/logo.jpg" 
+                src="/Logo.jpg" 
                 alt="Rentilee logo"
                 width={100}
                 height={30}
