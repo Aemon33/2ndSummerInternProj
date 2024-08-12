@@ -1,12 +1,14 @@
 import Link from 'next/link'
 import Image from 'next/Image'
 import SearchFilter  from "./SearchFilter"
+import UserNav  from "./UserNav"
+import AddPropertyButton from './AddPropertyButton'
 const  Navbar= () => {
   return (
     <nav className="w-full bg-white fixed top-0 left-0 z-10
     py-6 border-b  rounded-lg">
-        <div className="max-w-[1200px] mx-auto px-6 bg-blue-500 ">
-        <div className="flex justify-between items-center   bg-cyan-100">
+        <div className="max-w-[1200px] mx-auto px-6 ">
+        <div className="flex justify-between items-center ">
                 <Link href="/">
                 <Image 
                 src="/Logo.jpg" 
@@ -19,7 +21,8 @@ const  Navbar= () => {
                 <SearchFilter/>
               </div>
               <div className="flex items-center space-x-6">
-                Add property - User nav
+                <AddPropertyButton/>
+                <UserNav/>
               </div>
         </div>
 
