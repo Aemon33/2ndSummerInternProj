@@ -2,10 +2,12 @@
 import MenuLink from "./MenuLink";
 import { useState } from "react";
 import useLoginModal from "@/app/hooks/useLoginModal";
+import useSignupModal from "@/app/hooks/useSignupModal";
 
 function UserNav() {
 
   const LoginModal = useLoginModal();
+  const SignupModal = useSignupModal();
   const [isOpen, setIsOpen] = useState(true);
 
   return (
@@ -34,8 +36,12 @@ function UserNav() {
             />
             <MenuLink
               label="Sign up"
-              onClick={()=>alert('ti amo')}
-            />
+              onClick={
+                ()=>{
+                  setIsOpen(false)
+                  SignupModal.open()
+                }
+              }            />
           </div>
         )}
     </div>
