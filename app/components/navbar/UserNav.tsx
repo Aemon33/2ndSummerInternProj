@@ -1,8 +1,11 @@
 'use client';
 import MenuLink from "./MenuLink";
 import { useState } from "react";
+import useLoginModal from "@/app/hooks/useLoginModal";
 
 function UserNav() {
+
+  const LoginModal = useLoginModal();
   const [isOpen, setIsOpen] = useState(true);
 
   return (
@@ -22,7 +25,12 @@ function UserNav() {
           <div className=" flex flex-col cursor-pointer w-[220px] absolute  top-[60px] right-0 bg-white-200 border rounded-xl shadow-md " >
             <MenuLink
               label="Log in" 
-              onClick={()=>alert('ti amo')}
+              onClick={
+                ()=>{
+                  setIsOpen(false)
+                  LoginModal.open()
+                }
+              }
             />
             <MenuLink
               label="Sign up"
