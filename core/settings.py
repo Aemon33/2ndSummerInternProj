@@ -20,9 +20,9 @@ ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'useraccount.User'
 
-SIDE_ID = 1
+SITE_ID = 1
 
-WEBSITE_URL = 'http:localhost:8000'
+WEBSITE_URL = 'http://localhost:8000'
 
 
 SIMPLE_JWT =  {
@@ -32,15 +32,15 @@ SIMPLE_JWT =  {
     "BLACKLIST_AFTER_ROTATION":False,
     "UPDATE_LAST_LOGIN":True,
     "SIGNING_KEY":"accomplexkey",
-    "ALGORITHM":"H5512", # from GPT HS256
+    "ALGORITHM":"HS256", # from GPT HS256
         
 }
 # indicating that the username field is not used.
-ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_USER_MODEL_FIELD = None
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_AUTHENTICATION_METHOD = "email"
-ACCOUNT_EMAIL_VERIFICATION = None
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = "optional"
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES":(
@@ -82,15 +82,16 @@ INSTALLED_APPS = [
     'dj_rest_auth',
     'dj_rest_auth.registration',
     'corsheaders',
-    'property',
     'useraccount',
+    'property',
 
 ]
 
 MIDDLEWARE = [
+    'allauth.account.middleware.AccountMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware'
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -169,6 +170,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
