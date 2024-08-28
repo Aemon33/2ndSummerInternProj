@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 from .models import Property 
 from .serializers import PropertiesListSerializer
 
-@api_view(['GET'])
+@api_view(['GET',])
 @authentication_classes([])
 @permission_classes([])
 def properties_list(request):
