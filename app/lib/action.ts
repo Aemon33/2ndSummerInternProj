@@ -44,5 +44,8 @@ export async  function handleLogin(userId:string , accessToken:string, refreshTo
    }
 
 
-
+export async function getAccessToken(){
+    let accessToken = cookies().get('session_access_token')?.value;
+    return accessToken
+}
 
