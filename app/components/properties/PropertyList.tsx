@@ -10,7 +10,12 @@ export type PropertyType = {
   image_url:string;
 } 
 
-function PropertyList() {
+interface PropertyListProps {
+  landlord_id?:string| null;
+}
+
+
+const  PropertyList:React.FC<PropertyListProps> =({landlord_id})=> {
 const [properties, setProperties] = useState<PropertyType[]>([])
   const getProperties  = async () =>{
 
@@ -27,7 +32,11 @@ const [properties, setProperties] = useState<PropertyType[]>([])
   //   .catch((error)=>{
   //     console.log("error", error);
   //   })
-const tmpProperties = await apiService.get('/api/properties')
+  let url = '/api/properties';
+  if(landlord_id){
+    url += `?landlord_id=${landlord_id}`
+  }
+const tmpProperties = await apiService.get(url)
 setProperties(tmpProperties.data)
 
 
