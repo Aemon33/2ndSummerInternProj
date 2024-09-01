@@ -23,6 +23,11 @@ AUTH_USER_MODEL = 'useraccount.User'
 SITE_ID = 1
 
 WEBSITE_URL = 'http://localhost:8000'
+CHANNEL_LAYERS  = {
+    'default': {
+        'BACKEND':'channels.layers.InMemeoryChannelLayer'
+    }
+}
 
 
 SIMPLE_JWT =  {
@@ -71,7 +76,7 @@ REST_AUTH = {
 # Application definition
 
 INSTALLED_APPS = [
-    # 'daphne',
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -90,6 +95,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'useraccount',
     'property',
+    'chat',
     
 
 ]
@@ -123,7 +129,8 @@ TEMPLATES = [
     },
 ]
 
-# WSGI_APPLICATION = 'core.wsgi.application'
+WSGI_APPLICATION = 'core.wsgi.application'
+ASGI_APPLICATION = 'core.asgi.application'
 
 
 # Database
