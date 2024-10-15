@@ -1,57 +1,121 @@
-import React from 'react'
-import Image from 'next/image'
-function Categories() {
-  return (
+'use client';
 
-    
-    <div className='pt-3 pb-6 flex items-center space-x-12 cursor-pointer'>
+import { useState } from 'react';
+import Image from 'next/image';
+import useSearchModal, {SearchQuery} from '../hooks/useSearchModal';
+import { useSearchParams } from 'next/navigation';
 
-      <div className="pb-2 flex flex-col items-center space-y-2  hover:border-b-2 hover:border-gray-600 opacity-60 hover:opacity-100">
-          <Image 
-          src='/BeachFrontIcon.jpg' 
-          alt='branch front icon'
-          width={25}
-          height={25}
-          
-          />
-          <span className='text-xs'>Beach</span>
+const Categories = () => {
+    const searchModal = useSearchModal();
+    const [category, setCategory] = useState('');
 
-      </div>
-      <div className="pb-2 flex flex-col items-center space-y-2  hover:border-b-2 hover:border-gray-600 opacity-60 hover:opacity-100">
-          <Image 
-          src='/BeachFrontIcon.jpg' 
-          alt='branch front icon'
-          width={25}
-          height={25}
-          
-          />
-          <span className='text-xs'>Villas</span>
+    const _setCategory = (_category: string) => {
+        setCategory(_category);
 
-      </div>
-      <div className="pb-2 flex flex-col items-center space-y-2  hover:border-b-2 hover:border-gray-600 opacity-60 hover:opacity-100">
-          <Image 
-          src='/BeachFrontIcon.jpg' 
-          alt='branch front icon'
-          width={25}
-          height={25}
-          
-          />
-          <span className='text-xs'>Cabins</span>
+        const query: SearchQuery = {
+            country: searchModal.query.country,
+            checkIn: searchModal.query.checkIn,
+            checkOut: searchModal.query.checkOut,
+            guests: searchModal.query.guests,
+            bedrooms: searchModal.query.bedrooms,
+            bathrooms: searchModal.query.bathrooms,
+            category: _category
+        }
 
-      </div>
-      <div className="pb-2 flex flex-col items-center space-y-2  hover:border-b-2 hover:border-gray-600 opacity-60 hover:opacity-100">
-          <Image 
-          src='/BeachFrontIcon.jpg' 
-          alt='branch front icon'
-          width={25}
-          height={25}
-          
-          />
-          <span className='text-xs'>Tiny Houses</span>
+        searchModal.setQuery(query);
+    }
 
-      </div>
-    </div>
-  )
+    return (
+        <div className="pt-3 cursor-pointer pb-6 flex items-center space-x-12">
+            <div 
+                onClick={() => _setCategory('')}
+                className={`pb-4 flex flex-col items-center space-y-2 border-b-2 ${category == '' ? 'border-black' : 'border-white'} opacity-60 hover:border-gray-200 hover:opacity-100`}>
+                <Image
+                    src="/all.jpg"
+                    alt="Category - Beach"
+                    width={20}
+                    height={20}
+                />
+
+                <span className='text-xs'>All</span>
+            </div>
+            
+            <div 
+                onClick={() => _setCategory('beach')}
+                className={`pb-4 flex flex-col items-center space-y-2 border-b-2 ${category == 'beach' ? 'border-black' : 'border-white'} opacity-60 hover:border-gray-200 hover:opacity-100`}>
+                <Image
+                    src="/BeachFrontIcon.jpg"
+                    alt="Category - Beach"
+                    width={20}
+                    height={20}
+                />
+
+                <span className='text-xs'>Beach</span>
+            </div>
+
+            <div 
+                onClick={() => _setCategory('villas')}
+                className={`pb-4 flex flex-col items-center space-y-2 border-b-2 ${category == 'villas' ? 'border-black' : 'border-white'} opacity-60 hover:border-gray-200 hover:opacity-100`}>
+                <Image
+                    src="/villas.jpg"
+                    alt="Category - Beach"
+                    width={20}
+                    height={20}
+                />
+
+                <span className='text-xs'>Villas</span>
+            </div>
+
+            <div 
+                onClick={() => _setCategory('cabins')}
+                className={`pb-4 flex flex-col items-center space-y-2 border-b-2 ${category == 'cabins' ? 'border-black' : 'border-white'} opacity-60 hover:border-gray-200 hover:opacity-100`}>
+                <Image
+                src="/cabins.jpg" 
+                    alt="Category - Beach"
+                    width={24}
+                    height={24}
+                />
+                <span className='text-xs'>Cabins</span>
+            </div>
+
+            <div
+                onClick={() => _setCategory('tiny_homes')} 
+                className={`pb-4 flex flex-col items-center space-y-2 border-b-2 ${category == 'tiny_homes' ? 'border-black' : 'border-white'} opacity-60 hover:border-gray-200 hover:opacity-100`}>
+                <Image
+                    src="/tinyHouses.jpg"
+                    alt="Category - Beach"
+                    width={20}
+                    height={20}
+                />
+
+                <span className='text-xs'>Tiny homes</span>
+            </div>
+            <div
+                onClick={() => _setCategory('bed&breakfasts')} 
+                className={`pb-4 flex flex-col items-center space-y-2 border-b-2 ${category == 'bed&breakfasts' ? 'border-black' : 'border-white'} opacity-60 hover:border-gray-200 hover:opacity-100`}>
+                <Image
+                    src="/bed&breakfasts.jpg"
+                    alt="bed&breakfasts"
+                    width={20}
+                    height={20}
+                />
+
+                <span className='text-xs'>Bed & Breakfasts</span>
+            </div>
+            <div
+                onClick={() => _setCategory('islands')} 
+                className={`pb-4 flex flex-col items-center space-y-2 border-b-2 ${category == 'islands' ? 'border-black' : 'border-white'} opacity-60 hover:border-gray-200 hover:opacity-100`}>
+                <Image
+                    src="/islands.jpg"
+                    alt="islands"
+                    width={20}
+                    height={20}
+                />
+
+                <span className='text-xs'>Islands</span>
+            </div>
+        </div>
+    )
 }
 
-export default Categories
+export default Categories;

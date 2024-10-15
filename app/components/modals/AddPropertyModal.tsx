@@ -73,7 +73,7 @@ const [dataImage, setDataImage] = useState<File | null>(null)
             console.log(response)
             if(response.success){
                 console.log('success')
-                router.push('/')
+                router.push('/?added=true')
 
                 addPropertyModal.close()
             } else {

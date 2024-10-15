@@ -18,10 +18,10 @@ const  UserNav:React.FC<UserNavProps> = (
 const router = useRouter();
   const LoginModal = useLoginModal();
   const SignupModal = useSignupModal();
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className=" bg-red-300  p-2 relative  md:inline-block border  rounded-full cursor-pointer hover:shadow-lg transition">
+    <div className=" p-2 relative  md:inline-block border  rounded-full cursor-pointer hover:shadow-md transition">
         <button  
           onClick={()=> setIsOpen(!isOpen)}
         className="flex items-center p-1 "> 
@@ -34,7 +34,7 @@ const router = useRouter();
 
         </button>
         {isOpen&&(
-          <div className=" flex flex-col cursor-pointer w-[220px] absolute  top-[60px] right-0 bg-white-200 border rounded-xl shadow-md " >
+          <div className=" flex flex-col cursor-pointer w-[220px] absolute  top-[60px] right-0 bg-white border rounded-xl shadow-md " >
             {userId ? (
               <>
               <MenuLink 

@@ -18,12 +18,15 @@ const  PropertyListItem: React.FC <PropertyProps>  = ({property, markFavorite}) 
       onClick={()=> router.push(`/properties/${property.id}`)}
     
     >
+      
       <div className=" relative overflow-hidden aspect-square rounded-xl">
-        <Image fill
+        <Image 
+          fill 
           src={property.image_url}
-          sizes="(max-width: 768px) 768px, (max-width:1200px) 768px 768px"
-          className="hover:scale-110 object-cover transition h-full"
+          // sizes="(max-width: 768px) 768px, (max-width:1200px)  768px"
+          className="hover:scale-110 object-cover transition bg-blue-900 h-20"
           alt="beach house"
+          quality={75}
           />
           {markFavorite && (
             <FavoriteButton

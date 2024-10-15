@@ -1,36 +1,34 @@
-'use client'
-import useAddPropertyModal from '@/app/hooks/useAddPropertyModal'
-import useLoginModal from '@/app/hooks/useLoginModal';
+'use client';
 
+import useLoginModal from "@/app/hooks/useLoginModal";
+import useAddPropertyModal from "@/app/hooks/useAddPropertyModal";
 
-interface AddPropertyButtonProps{
-  userId?:string|null;
-
+interface AddPropertyButtonProps {
+    userId?: string | null;
 }
 
-const  AddPropertyButton: React.FC<AddPropertyButtonProps> = ({
-  
-  userId
+const AddPropertyButton: React.FC<AddPropertyButtonProps> = ({
+    userId
+}) => {
+    const loginModal = useLoginModal();
+    const addPropertyModal = useAddPropertyModal();
 
-})=> {
-  const loginModal = useLoginModal()
-  const addPropertyModal = useAddPropertyModal();
-  const RentileeYourHome =  () =>{
-    if(userId){
-      addPropertyModal.open()
-
-    }else {
-      loginModal.open();
+    const airbnbYourHome = () => {
+        if (userId) {
+            addPropertyModal.open()
+        } else {
+            loginModal.open();
+        }
     }
-  }
-  return (
-    <div 
-    onClick={RentileeYourHome}
-    className="p-2 text-sm font-semibold rounded-full cursor-pointer hover:bg-gray-200">
 
-        Rentilee you home
-    </div>
-)
+    return (
+        <div 
+            onClick={airbnbYourHome}
+            className="py-2 cursor-pointer text-sm font-semibold rounded-full hover:bg-gray-200"
+        >
+            Rentilee your home
+        </div>
+    )
 }
 
-export default AddPropertyButton
+export default AddPropertyButton;

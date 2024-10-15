@@ -8,9 +8,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      screens: {
+        'lg2': '1140px', // Custom breakpoint for 1140px
+      },
       colors:{
-        'rentilee':"#ff385c",
-        'rentilee-dark':'#d50827'
+        'rentilee':"#ffaa00",
+        'rentilee-dark':'#ff7b00'
       }
     },
   },
