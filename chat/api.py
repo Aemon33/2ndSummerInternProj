@@ -22,10 +22,10 @@ def conversations_detail(request, pk):
     conversation_serializer = ConversationDetailSerializer(conversation, many=False)
     messages_serializer = ConversationMessageSerializer(conversation.messages.all(), many=True)
 
-    return JsonResponse({
+    return Response({
         'conversation': conversation_serializer.data,
         'messages': messages_serializer.data
-    }, safe=False)
+    })
 
 @api_view(['GET'])
 def conversations_start(request, user_id):
@@ -34,11 +34,11 @@ def conversations_start(request, user_id):
     if conversations.count() > 0:
         conversation = conversations.first()
         
-        return JsonResponse({'success': True, 'conversation_id': conversation.id})
+        return Response({'success': True, 'conversation_id': conversation.id})
     else:
         user = User.objects.get(pk=user_id)
         conversation = Conversation.objects.create()
         conversation.users.add(request.user)
         conversation.users.add(user)
 
-        return JsonResponse({'success': True, 'conversation_id': conversation.id})
+        return Response({'success': True, 'conversation_id': conversation.id})

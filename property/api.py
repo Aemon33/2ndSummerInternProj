@@ -12,13 +12,16 @@ from rest_framework_simplejwt.tokens import AccessToken
 @permission_classes([])
 def properties_list(request):
     try :
-        token = request.META['HTTP_AUTHORIZATION'].split('bearer ')[1]
+        token = request.META['HTTP_AUTHORIZATION'].split('Bearer ')[1]
         token = AccessToken(token)
-        user_id = token.playload['user_id']
+        user_id = token.payload['user_id']
         user = User.objects.get(pk=user_id)
        
     except Exception as e :
         user = None
+
+
+    
 
 
 
@@ -29,11 +32,53 @@ def properties_list(request):
     is_favorites= request.GET.get('is_favorites','')
     landlord_id = request.GET.get('landlord_id','')
 
+
+    country = request.GET.get('country', '')
+    category = request.GET.get('category', '')
+    checkin_date = request.GET.get('checkIn', '')
+    checkout_date = request.GET.get('checkOut', '')
+    bedrooms = request.GET.get('numBedrooms', '')
+    guests = request.GET.get('numGuests', '')
+    bathrooms = request.GET.get('numBathrooms', '')
+
+    print('country', country)
+
+
+
+
+    
+    if checkin_date and checkout_date:
+        exact_matches = Reservation.objects.filter(start_date=checkin_date) | Reservation.objects.filter(end_date=checkout_date)
+        overlap_matches = Reservation.objects.filter(start_date__lte=checkout_date, end_date__gte=checkin_date)
+        all_matches = []
+
+        for reservation in exact_matches | overlap_matches:
+            all_matches.append(reservation.property_id)
+        
+        properties = properties.exclude(id__in=all_matches)
+
     if landlord_id:
-        properties = properties.filter(landlord_id = landlord_id)
+        properties = properties.filter(landlord_id=landlord_id)
+
     if is_favorites:
-        properties = properties.filter(favorites__in=[user])
-    # 
+        properties = properties.filter(favorited__in=[user])
+    
+    if guests:
+        properties = properties.filter(guests__gte=guests)
+    
+    if bedrooms:
+        properties = properties.filter(bedrooms__gte=bedrooms)
+    
+    if bathrooms:
+        properties = properties.filter(bathrooms__gte=bathrooms)
+    
+    if country:
+        properties = properties.filter(country=country)
+    
+    if category and category != 'undefined':
+        properties = properties.filter(category=category)
+    
+    # fovorites
 
 
     if user:
@@ -66,7 +111,7 @@ def property_reservations(request,pk):
     reservations = property.reservations.all()
 
     serializer = ReservationsListSerializer(reservations, many=True)
-    return Response(serializer.data)
+    return Response(serializer.data, safe=False)
 
 @api_view(['POST','FILES'])
 def create_property(request):
